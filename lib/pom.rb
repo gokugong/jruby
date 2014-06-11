@@ -54,6 +54,7 @@ default_gems =
    ImportedGem.new( 'krypt-core', 'krypt.version', true ),
    ImportedGem.new( 'krypt-provider-jdk', 'krypt.version', true ),
    ImportedGem.new( 'ffi', '1.9.3', true ),
+   ImportedGem.new( 'jar-dependencies', '0.0.3', true ),
    # NOTE: BC is now getting embedded within jruby-openssl.gem
    # ImportedGem.new( 'bouncy-castle-java', 'bc.version', true )
   ]
@@ -218,5 +219,9 @@ project 'JRuby Lib Setup' do
 #      f.puts "require 'bcpkix-jdk15on-#{bc_version}.jar'"
 #      f.puts "require 'bcprov-jdk15on-#{bc_version}.jar'"
 #    end
+
+    # we do not want rubygems_plugin.rb within jruby
+    f = File.join( ruby_dir, 'shared', 'rubygems_plugin.rb' )
+    File.delete( f ) if File.exists?( f )
   end
 end
