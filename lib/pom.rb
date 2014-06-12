@@ -135,6 +135,8 @@ project 'JRuby Lib Setup' do
 
     puts "using jruby #{JRUBY_VERSION}"
 
+    ENV['JRUBY_SKIP_JAR_DEPENDENCIES'] = 'true'
+
     target = ctx.project.build.directory.to_pathname
     gem_home = File.join( target, 'rubygems' )
     gems = File.join( gem_home, 'gems' )
