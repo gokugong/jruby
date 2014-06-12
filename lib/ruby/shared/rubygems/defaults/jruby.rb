@@ -5,10 +5,12 @@ require 'jruby/util'
 module Gem
 
   post_install do |gem_installer|
-    require 'jar_installer'
-    Jars::JarInstaller.new( gem_installer.spec ).vendor_jars
-  rescue LoadError
-    # during build this might be the case before the default gems are in place
+    begin
+      require 'jar_installer'
+      Jars::JarInstaller.new( gem_installer.spec ).vendor_jars
+    rescue LoadError
+      # during build this might be the case before the default gems are in place
+    end
   end
 
   ConfigFile::PLATFORM_DEFAULTS['install'] = '--no-rdoc --no-ri --env-shebang'
